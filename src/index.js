@@ -40,6 +40,33 @@ const MORSE_TABLE = {
 function decode(expr) {
     // write your solution here
     //start task
+    // const expr = "00101010100000000010001011101000101110100000111111**********00001011110000111111000010111000101110100000111010";
+    //const result = "hello world";
+    arr = [];
+    let str = '';
+    for (i = 1; i < expr.length ; i++ ) {
+      str += expr[i-1];
+      if (i % 10 === 0) {
+        arr.push(str);
+        str = '';
+      }
+    }
+    //console.log(arr);
+
+    str = arr.join(';');
+    console.log(str);
+
+    let out = str.replace(/10|11|0|\*{10}/g, function(c) {
+      return {
+        '10' : '.',
+        '11' : '-',
+        '0'  : '',
+        '**********' : ' '
+      } [c]
+    }  )
+
+    let newArr = out.split(';')
+
 }
 
 module.exports = {
