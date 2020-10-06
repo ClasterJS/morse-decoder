@@ -42,19 +42,17 @@ function decode(expr) {
     //start task
     // const expr = "00101010100000000010001011101000101110100000111111**********00001011110000111111000010111000101110100000111010";
     //const result = "hello world";
-    arr = [];
+    let arr = [];
     let str = '';
-    for (i = 1; i < expr.length ; i++ ) {
+    for (i = 1; i < expr.length + 1 ; i++ ) {
       str += expr[i-1];
       if (i % 10 === 0) {
         arr.push(str);
         str = '';
       }
     }
-    //console.log(arr);
 
     str = arr.join(';');
-    console.log(str);
 
     let out = str.replace(/10|11|0|\*{10}/g, function(c) {
       return {
@@ -65,8 +63,18 @@ function decode(expr) {
       } [c]
     }  )
 
-    let newArr = out.split(';')
+    arr = out.split(';')
 
+    for (let i = 0; i < arr.length; i++) {
+
+      for (let key in MORSE_TABLE) {
+        if (key === arr[i]) {
+            arr[i] = MORSE_TABLE[key];
+        }
+      }
+    }
+
+    return arr.join('');
 }
 
 module.exports = {
